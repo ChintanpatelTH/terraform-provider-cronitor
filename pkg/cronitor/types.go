@@ -33,7 +33,6 @@ type Monitor struct {
 	Tags              []string `json:"tags"`
 	Timezone          *string  `json:"timezone,omitempty"`
 	Type              string   `json:"type"`
-	Environments      []string `json:"environments"`
 }
 
 type Notifications struct {

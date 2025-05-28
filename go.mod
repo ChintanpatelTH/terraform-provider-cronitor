@@ -1,4 +1,4 @@
-module github.com/henrywhitaker3/terraform-provider-cronitor
+module github.com/ChintanpatelTH/terraform-provider-cronitor
 
 go 1.23
 

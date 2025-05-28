@@ -19,7 +19,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/henrywhitaker3/terraform-provider-cronitor/pkg/cronitor"
+	"github.com/ChintanpatelTH/terraform-provider-cronitor/pkg/cronitor"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -47,10 +47,7 @@ func (r *HeartbeatMonitorResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"key": schema.StringAttribute{
 				MarkdownDescription: "The monitor id",
-				Computed:            true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				Required:            true,
 			},
 			"name": schema.StringAttribute{
 				MarkdownDescription: "The monitor name",
@@ -111,13 +108,6 @@ func (r *HeartbeatMonitorResource) Schema(ctx context.Context, req resource.Sche
 				Optional:            true,
 				Computed:            true,
 				Default:             listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{types.StringValue("default")})),
-			},
-			"environments": schema.ListAttribute{
-				ElementType:         types.StringType,
-				MarkdownDescription: "The environments the monitor runs in",
-				Optional:            true,
-				Computed:            true,
-				Default:             listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{types.StringValue("production")})),
 			},
 			"telemetry_url": schema.StringAttribute{
 				MarkdownDescription: "The url to send pings to",
@@ -196,7 +186,6 @@ func (r *HeartbeatMonitorResource) Read(ctx context.Context, req resource.ReadRe
 	}
 
 	fixSliceOrder(state.Assertions, &monitor.Assertions)
-	fixSliceOrder(state.Environments, &monitor.Environments)
 	fixSliceOrder(state.Tags, &monitor.Tags)
 
 	data = toHeartbeatMonitor(monitor)
@@ -227,7 +216,6 @@ func (r *HeartbeatMonitorResource) Update(ctx context.Context, req resource.Upda
 	}
 
 	fixSliceOrder(upd.Assertions, &monitor.Assertions)
-	fixSliceOrder(upd.Environments, &monitor.Environments)
 	fixSliceOrder(upd.Tags, &monitor.Tags)
 
 	state = toHeartbeatMonitor(monitor)

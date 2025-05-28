@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/henrywhitaker3/terraform-provider-cronitor/pkg/cronitor"
+	"github.com/ChintanpatelTH/terraform-provider-cronitor/pkg/cronitor"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.

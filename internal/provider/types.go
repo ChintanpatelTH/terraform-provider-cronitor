@@ -8,7 +8,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/henrywhitaker3/terraform-provider-cronitor/pkg/cronitor"
+	"github.com/ChintanpatelTH/terraform-provider-cronitor/pkg/cronitor"
 )
 
 type BaseMonitorModel struct {
@@ -24,7 +24,6 @@ type BaseMonitorModel struct {
 	RealertInterval   types.String `tfsdk:"realert_interval"`
 	Timezone          types.String `tfsdk:"timezone"`
 	Tags              types.List   `tfsdk:"tags"`
-	Environments      types.List   `tfsdk:"environments"`
 }
 
 type HttpMonitorModel struct {
@@ -106,7 +105,6 @@ func toHttpMonitor(m *cronitor.Monitor) HttpMonitorModel {
 			Notify:          stringSlice(m.Notify),
 			Tags:            stringSlice(m.Tags),
 			RealertInterval: types.StringValue(m.RealertInterval),
-			Environments:    stringSlice(m.Environments),
 		},
 		Assertions:      stringSlice(m.Assertions),
 		Url:             types.StringValue(m.Request.URL),
@@ -159,7 +157,6 @@ func httpToMonitorRequest(data HttpMonitorModel) *cronitor.Monitor {
 		Paused:       data.Disabled.ValueBool(),
 		Notify:       toStringSlice(data.Notify),
 		Tags:         toStringSlice(data.Tags),
-		Environments: toStringSlice(data.Environments),
 		Type:         "check",
 		Platform:     "http",
 		Request: &cronitor.Request{
@@ -206,7 +203,6 @@ func toHeartbeatMonitor(m *cronitor.Monitor) HeartbeatMonitorModel {
 			Notify:          stringSlice(m.Notify),
 			Tags:            stringSlice(m.Tags),
 			RealertInterval: types.StringValue(m.RealertInterval),
-			Environments:    stringSlice(m.Environments),
 		},
 	}
 
@@ -228,12 +224,12 @@ func toHeartbeatMonitor(m *cronitor.Monitor) HeartbeatMonitorModel {
 
 func heartbeatToMonitorRequest(data HeartbeatMonitorModel) *cronitor.Monitor {
 	out := &cronitor.Monitor{
+		Key:          data.Key.ValueString(),
 		Name:         data.Name.ValueString(),
 		Disabled:     data.Disabled.ValueBool(),
 		Paused:       data.Disabled.ValueBool(),
 		Notify:       toStringSlice(data.Notify),
 		Tags:         toStringSlice(data.Tags),
-		Environments: toStringSlice(data.Environments),
 		Type:         "heartbeat",
 		Platform:     "linux",
 	}

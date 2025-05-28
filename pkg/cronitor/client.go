@@ -260,9 +260,6 @@ func (c *Client) setCreateDefaults(mon *Monitor) {
 	if len(mon.Notify) == 0 {
 		mon.Notify = []string{"default"}
 	}
-	if len(mon.Environments) == 0 {
-		mon.Environments = []string{"production"}
-	}
 	if mon.Request != nil {
 		if mon.Request.TimeoutSeconds == 0 {
 			mon.Request.TimeoutSeconds = 5

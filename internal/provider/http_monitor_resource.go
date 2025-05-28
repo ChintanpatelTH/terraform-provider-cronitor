@@ -20,7 +20,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/henrywhitaker3/terraform-provider-cronitor/pkg/cronitor"
+	"github.com/ChintanpatelTH/terraform-provider-cronitor/pkg/cronitor"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -165,13 +165,6 @@ func (r *HttpMonitorResource) Schema(ctx context.Context, req resource.SchemaReq
 				Computed:            true,
 				Default:             listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{types.StringValue("default")})),
 			},
-			"environments": schema.ListAttribute{
-				ElementType:         types.StringType,
-				MarkdownDescription: "The environments the monitor runs in",
-				Optional:            true,
-				Computed:            true,
-				Default:             listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{types.StringValue("production")})),
-			},
 		},
 	}
 }
@@ -240,7 +233,6 @@ func (r *HttpMonitorResource) Read(ctx context.Context, req resource.ReadRequest
 	}
 
 	fixSliceOrder(state.Assertions, &monitor.Assertions)
-	fixSliceOrder(state.Environments, &monitor.Environments)
 	fixSliceOrder(state.Tags, &monitor.Tags)
 	fixSliceOrder(state.Request.Regions, &monitor.Request.Regions)
 
@@ -271,7 +263,6 @@ func (r *HttpMonitorResource) Update(ctx context.Context, req resource.UpdateReq
 	}
 
 	fixSliceOrder(upd.Assertions, &monitor.Assertions)
-	fixSliceOrder(upd.Environments, &monitor.Environments)
 	fixSliceOrder(upd.Tags, &monitor.Tags)
 	fixSliceOrder(upd.Request.Regions, &monitor.Request.Regions)
 

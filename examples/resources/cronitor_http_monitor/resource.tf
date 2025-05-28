@@ -1,7 +1,7 @@
 resource "cronitor_http_monitor" "this" {
   name     = "Some monitor"
   schedule = "every 5 minutes"
-  url      = "https://registry.terraform.io/providers/henrywhitaker3/cronitor/latest"
+  url      = "https://registry.terraform.io/providers/ChintanpatelTH/cronitor/latest"
   method   = "GET"
   assertions = [
     "response.code = 200"
@@ -12,14 +12,14 @@ resource "cronitor_http_monitor" "this" {
 resource "cronitor_notification_list" "this" {
   name = "Demo"
   webhooks = [
-    "https://registry.terraform.io/providers/henrywhitaker3/cronitor/latest"
+    "https://registry.terraform.io/providers/ChintanpatelTH/cronitor/latest"
   ]
 }
 
 resource "cronitor_http_monitor" "this" {
   name     = "Some monitor"
   schedule = "every 5 minutes"
-  url      = "https://registry.terraform.io/providers/henrywhitaker3/cronitor/latest"
+  url      = "https://registry.terraform.io/providers/ChintanpatelTH/cronitor/latest"
   method   = "GET"
   assertions = [
     "response.code = 200"
