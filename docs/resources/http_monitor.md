@@ -61,7 +61,6 @@ resource "cronitor_http_monitor" "this" {
 - `body` (String) The body sent with the request
 - `cookies` (Map of String) The cookies sent with the request
 - `disabled` (Boolean) Whether the monitor is disabled
-- `environments` (List of String) The environments the monitor runs in
 - `failure_tolerance` (Number) The number of times the monitor can fail before triggering an alert
 - `follow_redirects` (Boolean) Whether to follow redirects of the response
 - `grace_seconds` (Number) The number of seconds to wait after failure before triggering an alert

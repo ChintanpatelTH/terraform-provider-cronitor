@@ -24,13 +24,13 @@ resource "cronitor_heartbeat_monitor" "this" {
 
 ### Required
 
+- `key` (String) The monitor id
 - `name` (String) The monitor name
 - `schedule` (String) The schedule the monitor runs on
 
 ### Optional
 
 - `disabled` (Boolean) Whether the monitor is disabled
-- `environments` (List of String) The environments the monitor runs in
 - `failure_tolerance` (Number) The number of times the monitor can fail before triggering an alert
 - `grace_seconds` (Number) The number of seconds to wait after failure before triggering an alert
 - `notify` (List of String) Where the alerts are sent when a failure occurs
@@ -42,5 +42,4 @@ resource "cronitor_heartbeat_monitor" "this" {
 
 ### Read-Only
 
-- `key` (String) The monitor id
 - `telemetry_url` (String, Sensitive) The url to send pings to
